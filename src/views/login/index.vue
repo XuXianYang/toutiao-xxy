@@ -2,7 +2,7 @@
   <div class="login-container">
     <van-nav-bar class="nav-bar" title="登录">
       <template #left>
-            <i @click="$router.back()" class="iconfont icon-guanbi"></i>
+        <i @click="$router.back()" class="iconfont icon-guanbi"></i>
       </template>
     </van-nav-bar>
     <van-form ref="mobileTF" @submit="onSubmit">
@@ -11,7 +11,7 @@
           v-model="user.mobile"
           name="mobile"
           placeholder="请输入手机号"
-          :rules="userFormRules.mobile"     
+          :rules="userFormRules.mobile"
         >
           <template #left-icon>
             <i class="iconfont icon-shouji"></i>
@@ -128,8 +128,8 @@ export default {
         const res = await login(this.user);
         console.log(res);
         this.$toast.success("登录成功");
-        this.$store.commit('setUser',res.data.data)
-        this.$router.back()
+        this.$store.commit("setUser", res.data.data);
+        this.$router.back();
       } catch (err) {
         // 登录失败处理
         this.$toast.fail("登录失败:" + err.response.data.message);
@@ -148,7 +148,7 @@ export default {
   .iconfont {
     font-size: 20px;
   }
-  .icon-guanbi{
+  .icon-guanbi {
     color: white;
     font-size: 16px;
   }

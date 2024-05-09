@@ -6,6 +6,7 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 import './styles/iconfont/iconfont.css'
 import './css/index.css'
+import './utils/dayjsUtils'
 
 Vue.use(Vant)
 Vue.config.productionTip = false

@@ -11,7 +11,18 @@ export const sendSMS = mobile => request({
     method:'GET',
 })
 
-export const getUserInfo = mobile => request({
+export const getUserInfo = () => request({
     url:'/v1_0/user',
     method:'GET',
+})
+
+export const getUserChannels = () => request({
+    url:'/v1_0/user/channels',
+    method:'GET',
+})
+
+export const getArtilceList = params => request({
+    url:'/v1_0/articles',
+    method:'GET',
+    params,
 })
