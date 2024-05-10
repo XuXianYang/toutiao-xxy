@@ -50,3 +50,17 @@ export const delUserChannels = channelId => request({
     url:`/v1_0/user/channels/${channelId}`,
     method:'DELETE',
 })
+
+// 获取搜索联想建议
+export const getSuggestions = q => request({
+    url:'/v1_0/suggestion',
+    method:'GET',
+    params:{q},
+})
+
+// 获取搜索结果
+export const getSearchResult = params => request({
+    url:'/v1_0/search',
+    method:'GET',
+    params,
+})

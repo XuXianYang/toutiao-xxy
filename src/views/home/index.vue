@@ -8,6 +8,7 @@
         round
         icon="search"
         type="info"
+        @click="$router.push('/search')"
         >搜索
       </van-button>
     </van-nav-bar>
@@ -50,7 +51,7 @@ import { getItem } from "@/utils/storage";
 export default {
   data() {
     return {
-      active: 1,
+      active: 0,
       list: [],
       showPopup: false,
     };

@@ -6,6 +6,7 @@ import home from '@/views/home'
 import qa from '@/views/qa'
 import video from '@/views/video'
 import my from '@/views/my'
+import search from '@/views/search/index.vue'
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,10 @@ const routes = [
   {
     path: '/login',
     component: loginPage,
+  },
+  {
+    path: '/search',
+    component: search,
   },
   {
     path: "/layout",
