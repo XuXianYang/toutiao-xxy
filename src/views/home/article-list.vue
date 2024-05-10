@@ -61,13 +61,11 @@ export default {
           channel_id: this.channel.id,
           timestamp: this.timestamp || Date.now(), //时间戳用来请求当前页码的数据，如果设置当前时间，就是第一页
         };
-        console.log(param);
         const { data } = await getArtilceList(param);
 
         // 把加载状态置为false，停止加载，等待滑动到底部开启下一次加载
         this.loading = false;
 
-        console.log(data);
         const results = data.data.results;
         if (results && results.length) {
           this.timestamp = data.data.pre_timestamp;
@@ -79,7 +77,6 @@ export default {
         // 请求失败：停止加载，开启错误提示
         this.loading = false;
         this.error = true;
-        console.log(err);
       }
     },
     // 下拉刷新请求
@@ -89,7 +86,6 @@ export default {
           channel_id: this.channel.id,
           timestamp: Date.now(),
         };
-        console.log(param);
         const { data } = await getArtilceList(param);
 
         // 把加载状态置为false
@@ -104,7 +100,6 @@ export default {
         // 请求失败：停止加载，开启错误提示
         this.isLoading = false;
         this.$toast("刷新失败");
-        console.log(err);
       }
     },
   },

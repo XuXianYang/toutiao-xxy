@@ -34,10 +34,6 @@ export default {
       required: true,
     },
   },
-  created() {
-    console.log(this.article.cover.type);
-    console.log(this.article.cover.images);
-  },
 };
 </script>
 

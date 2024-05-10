@@ -17,34 +17,77 @@
       </van-tab>
 
       <div slot="nav-right" class="placeholder"></div>
-      <div slot="nav-right" class="hamburger-btn">
+      <div slot="nav-right" class="hamburger-btn" @click="showPopup = true">
         <i class="iconfont icon-gengduo"></i>
       </div>
     </van-tabs>
+    <van-popup
+      class="edit-channel-popup"
+      v-model="showPopup"
+      closeable
+      close-icon-position="top-left"
+      position="bottom"
+      round
+      :style="{ height: '95%', width: '100%' }"
+    >
+      <channelEdit
+        :channel-list="list"
+        :activeIndex="active"
+        :active-index.sync="active"
+        @close-popup="showPopup = false"
+      >
+      </channelEdit>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import { getUserChannels } from "@/api/user";
 import articleList from "@/views/home/article-list";
+import channelEdit from "@/views/home/channel-edit";
+import { getItem } from "@/utils/storage";
+
 export default {
   data() {
     return {
       active: 1,
       list: [],
+      showPopup: false,
     };
   },
   components: {
     articleList,
+    channelEdit,
   },
   created() {
-    this.getChannels();
+    this.loadChannels();
   },
   methods: {
     async getChannels() {
       const { data } = await getUserChannels();
       this.list = data.data.channels;
-      console.log(this.list);
+    },
+    // 获取频道数据
+    async loadChannels() {
+      try {
+        //1、 根据缓存的用户信息判断是否登录，如果登录从后台获取
+        if (this.$store.state.user) {
+          const { data } = await getUserChannels();
+          this.list = data.data.channels;
+        } else {
+          // 2、如果未登录，从本地获取
+          const dataList = getItem("myChannel");
+          if (dataList && dataList.length) {
+            this.list = dataList;
+          } else {
+            //3、 本地获取失败，从后台获取
+            const { data } = await getUserChannels();
+            this.list = data.data.channels;
+          }
+        }
+      } catch (err) {
+        this.$toast.fail("获取频道失败");
+      }
     },
   },
 };
@@ -56,7 +99,7 @@ export default {
 
 <style scoped lang="less">
 .home-container {
-  .nav-bar{
+  .nav-bar {
     position: fixed;
     left: 0;
     right: 0;
@@ -125,6 +168,10 @@ export default {
         background-size: contain;
       }
     }
+  }
+  .edit-channel-popup {
+    padding-top: 50px;
+    box-sizing: border-box;
   }
 }
 </style>
