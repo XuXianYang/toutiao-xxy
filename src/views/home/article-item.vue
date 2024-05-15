@@ -1,11 +1,18 @@
 <template>
   <div class="acticleItem">
-    <van-cell>
+    <van-cell
+      :to="{
+        name:'article',
+        params: {
+          articleId: article.art_id,
+        },
+      }"
+    >
       <div class="title" slot="title">{{ article.title }}</div>
       <div class="name" slot="label">
         <span>{{ article.aut_name }}</span>
         <span>{{ article.comm_count }}评论</span>
-        <span>{{ article.pubdate |relativeTime }}</span>
+        <span>{{ article.pubdate | relativeTime }}</span>
         <div class="images" v-if="article.cover.type > 1">
           <van-image
             class="singleImg"
@@ -38,7 +45,7 @@ export default {
 </script>
 
 <style scoped lang="less">
- .acticleItem {
+.acticleItem {
   border-bottom: 1px solid #eee;
   .title {
     font-size: 17px;

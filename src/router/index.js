@@ -7,6 +7,7 @@ import qa from '@/views/qa'
 import video from '@/views/video'
 import my from '@/views/my'
 import search from '@/views/search/index.vue'
+import article from '@/views/article/index.vue'
 
 Vue.use(VueRouter)
 
@@ -14,14 +15,6 @@ const routes = [
   {
     path: '/',
     redirect: '/layout',
-  },
-  {
-    path: '/login',
-    component: loginPage,
-  },
-  {
-    path: '/search',
-    component: search,
   },
   {
     path: "/layout",
@@ -48,6 +41,21 @@ const routes = [
         component: my,
       },
     ],
+  },
+  {
+    path: '/login',
+    component: loginPage,
+  },
+  {
+    path: '/search',
+    component: search,
+  },
+  {
+    path: '/article/:articleId',
+    name: 'article',
+    component: article,
+    // 将路由动态参数映射到组件的 props 中
+    props: true
   },
 ]
 

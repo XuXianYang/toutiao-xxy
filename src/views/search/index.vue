@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     onSearch(str) {
-      console.log(str);
       if(!str||!str.trim().length)return
       this.searchText = str;
       this.isResultShow = true;

@@ -5,7 +5,9 @@ module.exports = {
                 // return file.indexOf('vant') !== -1 ? 16 : 32
                 return file.indexOf('vant') !== -1 ? 16 : 16
             },
-            propList: ['*']
+            propList: ['*'],
+            // 配置不要转换的样式资源
+            exclude: 'github-markdown'
         }
     }
 }

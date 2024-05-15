@@ -2,6 +2,7 @@ import axios from "axios";
 import jsonBig from "json-bigint"
 import store from "@/store/index.js"
 import router from "@/router";
+// jsonBig解决服务端返回大数字超出js范围的问题
 
 const request = axios.create({
     baseURL: 'http://toutiao.itheima.net'
@@ -13,7 +14,7 @@ request.defaults.transformResponse = [
         try {
             return jsonBig.parse(data);
         } catch (err) {
-            return {};
+            return data;
         }
     }
 ]
