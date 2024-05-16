@@ -20,10 +20,10 @@
       >
     </div>
     <div slot="label" class="contentWrap">
-      <p class="content">{{ comment.content }}</p>
+      <p class="content" v-html="comment.content"></p>
       <div class="replyWrap">
         <span class="pubTime">{{ comment.pubdate | relativeTime }}</span>
-        <van-button class="replyBtn" round
+        <van-button @click="$emit('replyClick',comment)" class="replyBtn" round
           >回复{{ comment.reply_count }}</van-button
         >
       </div>

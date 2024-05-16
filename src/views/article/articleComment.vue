@@ -12,6 +12,7 @@
       <!-- 评论项 -->
       <commentItem
         :comment="obj"
+        @replyClick="$emit('replyClick',$event)"
         v-for="(obj, index) in commentList"
         :key="index"
       >
@@ -58,6 +59,9 @@ export default {
     },
   },
   created() {
+    // 当你手动初始 onLoad 的话，它不会自动开始初始的 loading
+    // 所以我们要手动的开启初始 loading
+    this.loading = true
     this.onLoad();
   },
   methods: {

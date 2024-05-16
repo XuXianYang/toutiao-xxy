@@ -47,7 +47,12 @@
         ></div>
         <van-divider>文章内容结束</van-divider>
         <!-- 文章评论 -->
-        <articleComment :commentList="comList" :source="article.art_id" :type="'a'"></articleComment>
+        <articleComment
+          @replyClick="showReplyFn"
+          :commentList="comList"
+          :source="article.art_id"
+          :type="'a'"
+        ></articleComment>
         <!-- 底部工具栏 -->
         <div class="bottomBar">
           <van-button
@@ -90,6 +95,7 @@
       </div>
       <div class="bottomBg"></div>
     </div>
+    <!-- 发布文章评论弹框 -->
     <van-popup
       class="comment-popup"
       v-model="showPopup"
@@ -98,10 +104,24 @@
       position="bottom"
       round
     >
-      <commentPost 
-      :articleId="article.art_id"
-      @postSuccess="onPostSuccess"
+      <commentPost
+        :target="article.art_id"
+        @postSuccess="onPostSuccess"
       ></commentPost>
+    </van-popup>
+    <!-- 评论回复列表弹框 -->
+    <van-popup
+      class="reply-popup"
+      v-model="showReplyPopup"
+      closeable
+      position="bottom"
+      style="height: 95%"
+      round
+    >
+      <replyComment
+        v-if="showReplyPopup"
+        :comment="currentComment"
+      ></replyComment>
     </van-popup>
   </div>
 </template>
@@ -114,6 +134,7 @@ import collectArticles from "./collectArticles.vue";
 import likeArticles from "./likeArticles.vue";
 import articleComment from "./articleComment.vue";
 import commentPost from "./commentPost.vue";
+import replyComment from "./replyComment.vue";
 export default {
   name: "acticle",
   components: {
@@ -122,6 +143,14 @@ export default {
     likeArticles,
     articleComment,
     commentPost,
+    replyComment,
+  },
+  // 给所有的后代组件提供数据
+  // 注意：不要滥用
+  provide: function () {
+    return {
+      articleId: this.articleId,
+    };
   },
   props: {
     articleId: {
@@ -135,7 +164,9 @@ export default {
       article: {},
       isLoading: true,
       showPopup: false,
-      comList:[],//评论列表
+      showReplyPopup: false,
+      comList: [], //评论列表
+      currentComment: {},
     };
   },
   computed: {},
@@ -180,14 +211,22 @@ export default {
       }
     },
     //评论发布成功
-    onPostSuccess(data){
+    onPostSuccess(data) {
       // 关闭弹框
-      this.showPopup = false
+      this.showPopup = false;
       // 操作数组，渲染页面
-      this.comList.unshift(data)
+      this.comList.unshift(data);
       //评论总数量+1
-      this.article.comm_count++
-    }
+      this.article.comm_count++;
+    },
+    // 点击评论回复
+    showReplyFn(obj) {
+      // 弹出评论回复列表
+      this.showReplyPopup = true;
+      // 获取当前评论项
+      this.currentComment = obj;
+      console.log("当前评论项", obj);
+    },
   },
 };
 </script>

@@ -7,7 +7,9 @@
       autosize
       type="textarea"
       maxlength="50"
-      placeholder="请输入留言"
+      :placeholder="
+        replyComment ? '回复' + replyComment.aut_name + ':' : '请输入留言'
+      "
       show-word-limit
     />
     <van-button
@@ -29,10 +31,21 @@ export default {
       message: "",
     };
   },
-  props: {
+  // 接收父元素提供的共享数据
+  inject: {
     articleId: {
+      type: [Number, String, Object],
+      default: null,
+    },
+  },
+  props: {
+    target: {
       type: String,
       required: true,
+    },
+    // 评论的回复
+    replyComment: {
+      type: Object,
     },
   },
   methods: {
@@ -45,10 +58,14 @@ export default {
         message: "发布中...",
         forbidClick: true, // 是否禁止背景点击
       });
+      let inputMsg = this.message;
+      if (this.replyComment && this.replyComment.aut_name) {
+        inputMsg = `回复 <span style="color: blue;">${this.replyComment.aut_name}</span> :${this.message}`;
+      }
       try {
         const res = await addComments({
-          content: this.message,
-          target: this.articleId,
+          content: inputMsg,
+          target: this.target,
           art_id: this.articleId,
         });
         console.log(res);
@@ -59,7 +76,7 @@ export default {
         this.$toast.fail("发布失败：" + err.response.data.message);
       }
       //发布完成清空输入框
-      this.message = ''
+      this.message = "";
     },
   },
 };
