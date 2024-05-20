@@ -13,7 +13,7 @@
           <span class="name">{{ userInfo.name }}</span>
         </div>
         <div class="right">
-          <van-button size="mini" round to="/user/profile">编辑资料</van-button>
+          <van-button size="mini" round :to="{name:'editUser',params:userInfo}">编辑资料</van-button>
         </div>
       </div>
       <div class="data-stats">
@@ -21,11 +21,11 @@
           <span class="count">{{userInfo.art_count}}</span>
           <span class="text">头条</span>
         </div>
-        <div class="data-item">
+        <div class="data-item" @click="$router.push({name:'follow',params:{index:1}})">
           <span class="count">{{userInfo.follow_count}}</span>
           <span class="text">关注</span>
         </div>
-        <div class="data-item">
+        <div class="data-item" @click="$router.push({name:'follow',params:{index:2}})">
           <span class="count">{{userInfo.fans_count}}</span>
           <span class="text">粉丝</span>
         </div>
@@ -46,11 +46,11 @@
     </div>
 
     <van-grid class="grid-nav mb-9" :column-num="2" clickable>
-      <van-grid-item class="grid-item">
+      <van-grid-item class="grid-item" @click="$router.push({name:'collect',params:{index:1}})">
         <i slot="icon" class="iconfont icon-shoucang"></i>
         <span slot="text" class="text">收藏</span>
       </van-grid-item>
-      <van-grid-item class="grid-item">
+      <van-grid-item class="grid-item" @click="$router.push({name:'collect',params:{index:2}})">
         <i slot="icon" class="iconfont icon-lishi"></i>
         <span slot="text" class="text">历史</span>
       </van-grid-item>
@@ -137,7 +137,7 @@ export default {
         .name {
           margin-left: 10px;
           color: white;
-          font-size: 20px;
+          font-size: 15px;
         }
       }
     }

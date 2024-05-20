@@ -8,7 +8,10 @@ import video from '@/views/video'
 import my from '@/views/my'
 import search from '@/views/search/index.vue'
 import article from '@/views/article/index.vue'
-
+import editUser from '@/views/my/editUser.vue'
+import userPage from '@/views/user/index.vue'
+import myCollect from './../views/user/myCollect.vue'
+import myFollow from './../views/user/myFollow.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -56,6 +59,28 @@ const routes = [
     component: article,
     // 将路由动态参数映射到组件的 props 中
     props: true
+  },
+  {
+    path: '/editUser',
+    name: 'editUser',
+    component: editUser,
+  },
+  {
+    path: '/user/:userId',
+    name: 'user',
+    component: userPage,
+    // 将路由动态参数映射到组件的 props 中
+    props: true
+  },
+  {
+    path: '/follow',
+    name: 'follow',
+    component: myFollow,
+  },
+  {
+    path: '/collect',
+    name: 'collect',
+    component: myCollect,
   },
 ]
 

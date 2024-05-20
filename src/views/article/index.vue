@@ -27,8 +27,9 @@
             round
             fit="cover"
             :src="article.aut_photo"
+            @click="$router.push({name:'user',params:{userId:article.aut_id},query:article})"
           />
-          <div slot="title" class="user-name">{{ article.aut_name }}</div>
+          <div @click="$router.push({name:'user',params:{userId:article.aut_id},query:article})" slot="title" class="user-name">{{ article.aut_name }}</div>
           <div slot="label" class="publish-date">
             {{ article.pubdate | relativeTime }}
           </div>

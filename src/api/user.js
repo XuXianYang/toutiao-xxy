@@ -19,6 +19,63 @@ export const getUserInfo = () => request({
     method:'GET',
 })
 
+// 获取用户个人信息
+export const getUserProfile = () => request({
+    url:'/v1_0/user/profile',
+    method:'GET',
+})
+
+// 获取他人用户信息:废弃
+export const getOtherUserInfo = userId => request({
+    url:`/v1_0/user/${userId}`,
+    method:'GET',
+})
+
+// 获取收藏
+export const getCollections = () => request({
+    url:'/v1_0/article/collections',
+    method:'GET',
+})
+
+// 获取历史
+export const getHistories = () => request({
+    url:'/v1_0/user/histories',
+    method:'GET',
+})
+
+// 获取关注
+export const getFollowings = () => request({
+    url:'/v1_0/user/followings',
+    method:'GET',
+})
+
+// 获取粉丝
+export const getFollowers = () => request({
+    url:'/v1_0/user/followers',
+    method:'GET',
+})
+
+// 编辑用户头像
+export const editUserPhoto = data => request({
+    url:'/v1_0/user/photo',
+    method:'PATCH',
+    data,
+})
+
+// 编辑用户资料
+export const editUserInfo = data => request({
+    url:'/v1_0/user/profile',
+    method:'PATCH',
+    data,
+})
+
+// 编辑用户头像
+export const editUserHead = data => request({
+    url:'v1_0/user/photo',
+    method:'PATCH',
+    data,
+})
+
 // 获取首页用户频道
 export const getUserChannels = () => request({
     url:'/v1_0/user/channels',
